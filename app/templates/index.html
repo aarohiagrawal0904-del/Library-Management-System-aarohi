@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 0;">
+    <h1
+        style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(90deg, #6366f1, #ec4899); -webkit-background-clip: text; color: transparent;">
+        The Future of Library Management
+    </h1>
+    <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 2rem;">
+        Managed efficiently, effortlessly, and beautifully.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Get Started</a>
+        <a href="{{ url_for('auth.register') }}" class="btn glass">Create Account</a>
+    </div>
+</div>
+{% endblock %}

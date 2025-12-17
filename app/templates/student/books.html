@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="margin-bottom: 2rem;">Library Collection</h2>
+
+<div class="glass" style="padding: 2rem; overflow-x: auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.category }}</td>
+                <td>
+                    {% if book.available_quantity > 0 %}
+                    <span style="color: var(--success);">Available ({{ book.available_quantity }})</span>
+                    {% else %}
+                    <span style="color: var(--danger);">Out of Stock</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2>Manage Books</h2>
+    <a href="{{ url_for('admin.add_book') }}" class="btn btn-primary">Add Book</a>
+</div>
+
+<div class="glass" style="padding: 2rem; overflow-x: auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Category</th>
+                <th>Avail / Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.category }}</td>
+                <td>{{ book.available_quantity }} / {{ book.quantity }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_book', book_id=book.id) }}"
+                        style="color: var(--primary); margin-right: 1rem;">Edit</a>
+                    <a href="{{ url_for('admin.delete_book', book_id=book.id) }}" style="color: var(--danger);"
+                        onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

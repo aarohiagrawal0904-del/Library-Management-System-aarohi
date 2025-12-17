@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="margin-bottom: 2rem;">Admin Dashboard</h2>
+
+<div class="stats-grid">
+    <div class="glass stat-card">
+        <h3>Total Books</h3>
+        <div class="value">{{ total_books }}</div>
+    </div>
+    <div class="glass stat-card">
+        <h3>Currently Issued</h3>
+        <div class="value">{{ issued_books }}</div>
+    </div>
+    <div class="glass stat-card">
+        <h3>Students</h3>
+        <div class="value">{{ total_users }}</div>
+    </div>
+</div>
+
+<div class="glass" style="padding: 2rem; overflow-x: auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3>Recent Issues</h3>
+        <a href="{{ url_for('admin.issue_book') }}" class="btn btn-primary">Issue New Book</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Book</th>
+                <th>Issue Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in recent_issues %}
+            <tr>
+                <td>{{ issue.user.username }}</td>
+                <td>{{ issue.book.title }}</td>
+                <td>{{ issue.issue_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ issue.due_date }}</td>
+                <td>
+                    <span style="color: {{ 'var(--success)' if issue.status == 'returned' else 'var(--warning)' }}">
+                        {{ issue.status|title }}
+                    </span>
+                </td>
+                <td>
+                    {% if issue.status == 'issued' %}
+                    <a href="{{ url_for('admin.return_book', issue_id=issue.id) }}" class="btn btn-primary"
+                        style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">Return</a>
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

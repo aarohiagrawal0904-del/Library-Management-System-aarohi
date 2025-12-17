@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="margin-bottom: 2rem;">My Issued Books</h2>
+
+{% if issues %}
+<div class="glass" style="padding: 2rem; overflow-x: auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Issue Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Fine</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td>{{ issue.book.title }}</td>
+                <td>{{ issue.book.author }}</td>
+                <td>{{ issue.issue_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ issue.due_date }}</td>
+                <td>
+                    <span style="color: {{ 'var(--success)' if issue.status == 'returned' else 'var(--warning)' }}">
+                        {{ issue.status|title }}
+                    </span>
+                </td>
+                <td>
+                    {% if issue.fine > 0 %}
+                    <span style="color: var(--danger); font-weight: bold;">${{ issue.fine }}</span>
+                    {% else %}
+                    $0.00
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="glass" style="padding: 2rem; text-align: center;">
+    <p>You haven't issued any books yet.</p>
+    <a href="{{ url_for('student.books') }}" class="btn btn-primary" style="margin-top: 1rem;">Browse Library</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="glass" style="max-width: 600px; margin: 2rem auto; padding: 2rem;">
+    <h2 style="margin-bottom: 1.5rem;">Edit Book</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" value="{{ book.title }}" required>
+        </div>
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" name="author" value="{{ book.author }}" required>
+        </div>
+        <div class="form-group">
+            <label>ISBN</label>
+            <input type="text" name="isbn" value="{{ book.isbn }}" required>
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category" value="{{ book.category }}">
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" name="quantity" min="1" value="{{ book.quantity }}" required>
+            <small style="color: var(--text-muted);">Adjusting total quantity updates available stock.</small>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn btn-primary">Update Book</button>
+            <a href="{{ url_for('admin.books') }}" class="btn glass">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
